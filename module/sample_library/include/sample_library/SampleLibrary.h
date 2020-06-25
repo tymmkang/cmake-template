@@ -1,0 +1,39 @@
+#ifndef SAMPLE_LIBRARY_H
+#define SAMPLE_LIBRARY_H
+
+#include "Config.h"
+
+//////////////////////////////////////////////////
+// Platform
+//////////////////////////////////////////////////
+
+#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__)
+    #define PLATFORM_WIN32
+#endif
+
+//////////////////////////////////////////////////
+// ~Platform
+//////////////////////////////////////////////////
+
+//////////////////////////////////////////////////
+// Shared library
+//////////////////////////////////////////////////
+
+#if CONF_SAMPLE_LIBRARY_SHARED_LIB
+    #if defined(PLATFORM_WIN32)
+        #if defined(BUILD_SHARED_LIB)
+            #define __declspec(dllexport)
+        #else
+            #define __declspec(dllimport)
+        #endif
+    // TODO : Support other platforms
+    #endif
+#else
+    #define SAMPLE_LIB_API
+#endif
+
+//////////////////////////////////////////////////
+// Shared library
+//////////////////////////////////////////////////
+
+#endif

@@ -1,6 +1,6 @@
-﻿# Module 'helloworld'
+﻿# Module 'sample_excutable'
 
-set(VAR_MODULE_NAME "helloworld")
+set(VAR_MODULE_NAME "sample_excutable")
 
 set(VAR_MODULE_SOURCES)
 FUNC_GET_SUBDIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} SUBDIRS)

@@ -5,18 +5,17 @@
 
 namespace SampleLibrary
 {
-    class TestClass
-    {
-    public:
+    SAMPLE_LIBRARY_API int Add(int a, int b);
 
-        TestClass();
+    SAMPLE_LIBRARY_API int Sub(int a, int b);
 
-        ~TestClass();
+    SAMPLE_LIBRARY_API int Mul(int a, int b);
 
-        void Print();
-    };
+    SAMPLE_LIBRARY_API int Div(int a, int b);
+
+    SAMPLE_LIBRARY_API int Mod(int a, int b);
+
+
 }
-
-SAMPLE_LIBRARY_API int Add(int a, int b);
 
 #endif

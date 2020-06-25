@@ -3,23 +3,28 @@
 
 namespace SampleLibrary
 {
-    TestClass::TestClass()
+    int Add(int a, int b)
     {
-
+        return a + b;
     }
 
-    TestClass::~TestClass()
+    int Sub(int a, int b)
     {
-
+        return a - b;
     }
 
-    void TestClass::Print()
+    int Mul(int a, int b)
     {
-        std::cout << "Hello from TestClass" << std::endl;
+        return a * b;
     }
-}
 
-int Add(int a, int b)
-{
-    return a + b;
+    int Div(int a, int b)
+    {
+        return a / b;
+    }
+
+    int Mod(int a, int b)
+    {
+        return a % b;
+    }
 }

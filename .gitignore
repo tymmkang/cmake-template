@@ -16,5 +16,6 @@ _deps
 [Bb]uilds/
 CMakeBuild/
 
-# Output
+# Output, Install
 [Oo]utput/
+[Ii]nstall/

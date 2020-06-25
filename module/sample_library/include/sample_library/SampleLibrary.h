@@ -22,14 +22,14 @@
 #if CONF_SAMPLE_LIBRARY_SHARED_LIB
     #if defined(PLATFORM_WIN32)
         #if defined(BUILD_SHARED_LIB)
-            #define __declspec(dllexport)
+            #define SAMPLE_LIBRARY_API __declspec(dllexport)
         #else
-            #define __declspec(dllimport)
+            #define SAMPLE_LIBRARY_API __declspec(dllimport)
         #endif
     // TODO : Support other platforms
     #endif
 #else
-    #define SAMPLE_LIB_API
+    #define SAMPLE_LIBRARY_API
 #endif
 
 //////////////////////////////////////////////////

@@ -1,6 +1,8 @@
 #ifndef SAMPLE_LIBRARY_TEST_CLASS_H
 #define SAMPLE_LIBRARY_TEST_CLASS_H
 
+#include "SampleLibrary.h"
+
 namespace SampleLibrary
 {
     class TestClass
@@ -15,6 +17,6 @@ namespace SampleLibrary
     };
 }
 
-__declspec(dllexport) int Add(int a, int b);
+SAMPLE_LIBRARY_API int Add(int a, int b);
 
 #endif

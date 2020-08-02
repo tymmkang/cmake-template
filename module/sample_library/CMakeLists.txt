@@ -3,9 +3,6 @@ set(VAR_MODULE_NAME_SAMPLE_EXCUTABLE ${PARENT_DIR_NAME} CACHE INTERNAL ${PARENT_
 set(VAR_MODULE_NAME ${VAR_MODULE_NAME_SAMPLE_EXCUTABLE}) # For local use 
 message(STATUS ${VAR_MODULE_NAME})
 
-set(VAR_MODULE_NAME_SAMPLE_LIBRARY "sample_library" CACHE INTERNAL "sample_library")
-set(VAR_MODULE_NAME ${VAR_MODULE_NAME_SAMPLE_LIBRARY}) # For local use 
-
 ##################################################
 # Option
 ##################################################

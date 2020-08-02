@@ -1,6 +1,9 @@
 # List of module
 
-set(VAR_PRIMAL_MODULES "external")
+set(VAR_PRIMAL_MODULES 
+    "external"
+    "sample_library"
+)
 
 foreach(PRIMAL_MODULE ${VAR_PRIMAL_MODULES})
     add_subdirectory(${PRIMAL_MODULE})

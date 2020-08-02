@@ -1,15 +1,16 @@
 FUNC_GET_PARENT_DIRECTORY_NAME(${CMAKE_CURRENT_LIST_DIR} PARENT_DIR_NAME)
-set(VAR_MODULE_NAME_SAMPLE_EXCUTABLE ${PARENT_DIR_NAME} CACHE INTERNAL ${PARENT_DIR_NAME})
-set(VAR_MODULE_NAME ${VAR_MODULE_NAME_SAMPLE_EXCUTABLE}) # For local use 
-message(STATUS ${VAR_MODULE_NAME})
+set("VAR_MODULE_NAME_${PARENT_DIR_NAME}" ${PARENT_DIR_NAME} CACHE INTERNAL ${PARENT_DIR_NAME})
+set(VAR_MODULE_NAME "${VAR_MODULE_NAME_${PARENT_DIR_NAME}}") # For local use 
+string(TOUPPER ${VAR_MODULE_NAME} VAR_UPPER_MODULE_NAME)
+message(STATUS "module : ${VAR_MODULE_NAME}")
 
 ##################################################
 # Option
 ##################################################
 
-OPTION("OPT_SAMPLE_LIBRARY_SHARED_LIB" OFF)
+OPTION("OPT_${VAR_MODULE_NAME}_SHARED_LIB" OFF)
 
-OPTION("OPT_SAMPLE_LIBRARY_INSTALL" ON)
+OPTION("OPT_${VAR_MODULE_NAME}_INSTALL" ON)
 
 ##################################################
 # ~Option
@@ -19,10 +20,10 @@ OPTION("OPT_SAMPLE_LIBRARY_INSTALL" ON)
 # Configure
 ##################################################
 
-if(OPT_SAMPLE_LIBRARY_SHARED_LIB)
-    SET(CONF_SAMPLE_LIBRARY_SHARED_LIB 1)
+if(OPT_${VAR_MODULE_NAME}_SHARED_LIB)
+    SET(IS_SHARED_LIB 1)
 else()
-    SET(CONF_SAMPLE_LIBRARY_SHARED_LIB 0)
+    SET(IS_SHARED_LIB 0)
 endif()
 
 CONFIGURE_FILE("Config.h.template" "${CMAKE_CURRENT_LIST_DIR}/include/${VAR_MODULE_NAME}/Config.h")
@@ -51,9 +52,9 @@ FUNC_GROUP_SOURCE("${VAR_INTERNAL_SOURCES}" "${CMAKE_CURRENT_LIST_DIR}")
 # Add library 
 ##################################################
 
-if(OPT_SAMPLE_LIBRARY_SHARED_LIB)
+if(OPT_${VAR_MODULE_NAME}_SHARED_LIB)
     add_library(${VAR_MODULE_NAME} SHARED ${VAR_EXPOSED_SOURCES} ${VAR_INTERNAL_SOURCES})
-    target_compile_definitions(${VAR_MODULE_NAME} PRIVATE "BUILD_SHARED_LIB")
+    target_compile_definitions(${VAR_MODULE_NAME} PRIVATE "${VAR_UPPER_MODULE_NAME}_BUILD_SHARED_LIB")
 else()
     add_library(${VAR_MODULE_NAME} STATIC ${VAR_EXPOSED_SOURCES} ${VAR_INTERNAL_SOURCES})
 endif()
@@ -74,7 +75,7 @@ set_target_properties(${VAR_MODULE_NAME} PROPERTIES
 # Install 
 ##################################################
 
-if(OPT_SAMPLE_LIBRARY_INSTALL)
+if(OPT_${VAR_MODULE_NAME}_INSTALL)
 
     install(FILES ${VAR_EXPOSED_SOURCES} 
         DESTINATION "${VAR_MODULE_NAME}/${CMAKE_INSTALL_INCLUDEDIR}/${VAR_MODULE_NAME}"
@@ -97,12 +98,14 @@ endif()
 # Add library function 
 ##################################################
 
-macro(FUNC_ADD_SAMPLE_LIBRARY TARGET)
-    message(STATUS "Add '${VAR_MODULE_NAME_SAMPLE_LIBRARY}' to '${TARGET}'")
-    add_dependencies(${TARGET} ${VAR_MODULE_NAME_SAMPLE_LIBRARY})
-    target_link_libraries(${TARGET} PRIVATE ${VAR_MODULE_NAME_SAMPLE_LIBRARY})
-    include_directories("${CMAKE_SOURCE_DIR}/${VAR_DIR_NAME_MODULE}/${VAR_MODULE_NAME_SAMPLE_LIBRARY}/include")
-endmacro()
+function(FUNC_ADD_${VAR_MODULE_NAME} TARGET)
+    string(REPLACE "FUNC_ADD_" "" VAR_MODULE_NAME ${CMAKE_CURRENT_FUNCTION})
+    message(STATUS "Add '${VAR_MODULE_NAME}' to '${TARGET}'")
+
+    add_dependencies(${TARGET} ${VAR_MODULE_NAME})
+    target_link_libraries(${TARGET} PRIVATE ${VAR_MODULE_NAME})
+    include_directories("${CMAKE_SOURCE_DIR}/${VAR_DIR_NAME_MODULE}/${VAR_MODULE_NAME}/include")
+endfunction()
 
 ##################################################
 # ~Add library function  
